@@ -15,10 +15,9 @@ class ParticipantTest {
     void 이름과_베팅금액으로_참가자를_생성한다() {
         // Given
         PlayerName name = new PlayerName("프리");
-        BettedMoney bettedMoney = new BettedMoney(30_000);
 
         // When & Then
-        assertThatCode(() -> new Participant(name, bettedMoney))
+        assertThatCode(() -> new Participant(name))
                 .doesNotThrowAnyException();
     }
 
@@ -26,8 +25,7 @@ class ParticipantTest {
     void 참가자에게_카드를_한장_준다() {
         // Given
         PlayerName name = new PlayerName("프리");
-        BettedMoney bettedMoney = new BettedMoney(30_000);
-        Participant participant = new Participant(name, bettedMoney);
+        Participant participant = new Participant(name);
 
         // When & Then
         participant.putCard(new Card(CardShape.HEART, CardType.NORMAL_2));

@@ -1,25 +1,17 @@
 package blackjack.model.player;
 
-import blackjack.model.game.BettedMoney;
-
 import java.util.Objects;
 
 public class Participant extends Player {
 
     private final PlayerName name;
-    private final BettedMoney bettedMoney;
 
-    public Participant(final PlayerName name, final BettedMoney bettedMoney) {
+    public Participant(final PlayerName name) {
         this.name = name;
-        this.bettedMoney = bettedMoney;
     }
 
     public String getName() {
         return name.getName();
-    }
-
-    public int getBettedMoney() {
-        return bettedMoney.getMoney();
     }
 
     @Override

@@ -7,6 +7,7 @@ import blackjack.model.player.Participants;
 import blackjack.view.InputView;
 import blackjack.view.OutputView;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class BlackJackController {
@@ -21,19 +22,28 @@ public class BlackJackController {
 
     public void run() {
         Participants participants = generateParticipants();
+        BettedMoneys bettedMoneys = generateBettedMoneys(participants);
         Dealer dealer = new Dealer();
         BlackJackGame blackJackGame = new BlackJackGame(new DeckInitializer(), dealer, participants);
         blackJackGame.initializeGame();
         outputView.outputFirstCardDistributionResult(participants, dealer);
         progressTurns(blackJackGame, dealer, participants);
-        calculateFinalWinningMoney(dealer, participants);
+        calculateFinalWinningMoney(dealer, participants, bettedMoneys);
     }
 
     private Participants generateParticipants() {
         String namesText = inputView.inputParticipantName();
         return new Participants(Parser.parseNames(namesText).stream()
-                .map(name -> new Participant(name, new BettedMoney(inputView.inputParticipantMoney(name))))
+                .map(Participant::new)
                 .toList());
+    }
+
+    private BettedMoneys generateBettedMoneys(final Participants participants) {
+        Map<Participant, BettedMoney> bettedMoneys = new HashMap<>();
+        for (Participant participant : participants.getParticipants()) {
+            bettedMoneys.put(participant, new BettedMoney(inputView.inputParticipantMoney(participant.getName())));
+        }
+        return new BettedMoneys(bettedMoneys);
     }
 
     private void progressTurns(final BlackJackGame blackJackGame, final Dealer dealer, final Participants participants) {
@@ -74,10 +84,12 @@ public class BlackJackController {
         outputView.outputFinalResult(participantResults, participantResultCounts);
     }*/
 
-    private void calculateFinalWinningMoney(final Dealer dealer, final Participants participants) {
+    private void calculateFinalWinningMoney(final Dealer dealer, final Participants participants, final BettedMoneys bettedMoneys) {
         Map<Participant, ParticipantResult> participantResults = ParticipantResult.calculateParticipantResults(dealer, participants);
-        Map<Participant, Integer> winningMoney = MoneyDistributor.calculateWinningMoney(dealer, participantResults);
-        int dealerMoney = MoneyDistributor.calculateDealerMoney(winningMoney);
+        Map<Participant, Integer> winningMoney = bettedMoneys.calculateWinningMoney(dealer.isBlackJack(), participantResults);
+        int dealerMoney = -winningMoney.values().stream()
+                .mapToInt(Integer::intValue)
+                .sum();
         outputView.outputFinalWinningMoney(dealerMoney, winningMoney);
     }
 }

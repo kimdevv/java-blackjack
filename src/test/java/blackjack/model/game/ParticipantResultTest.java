@@ -21,7 +21,7 @@ class ParticipantResultTest {
     void 플레이어가_버스트가_아니고_참가자가_패배인_경우() {
         // given
         Dealer dealer = new Dealer();
-        Participant participant = new Participant(new PlayerName("프리"), new BettedMoney(10_000));
+        Participant participant = new Participant(new PlayerName("프리"));
         dealer.putCard(new Card(CardShape.CLOVER, CardType.NORMAL_8));
         participant.putCard(new Card(CardShape.CLOVER, CardType.NORMAL_2));
 
@@ -36,7 +36,7 @@ class ParticipantResultTest {
     void 플레이어가_버스트가_아니고_참가자가_승리인_경우() {
         // given
         Dealer dealer = new Dealer();
-        Participant participant = new Participant(new PlayerName("프리"), new BettedMoney(10_000));
+        Participant participant = new Participant(new PlayerName("프리"));
         dealer.putCard(new Card(CardShape.CLOVER, CardType.NORMAL_2));
         participant.putCard(new Card(CardShape.CLOVER, CardType.NORMAL_8));
 
@@ -51,7 +51,7 @@ class ParticipantResultTest {
     void 플레이어가_버스트가_아니고_무승부인_경우() {
         // given
         Dealer dealer = new Dealer();
-        Participant participant = new Participant(new PlayerName("프리"), new BettedMoney(10_000));
+        Participant participant = new Participant(new PlayerName("프리"));
         dealer.putCard(new Card(CardShape.CLOVER, CardType.NORMAL_8));
         participant.putCard(new Card(CardShape.CLOVER, CardType.NORMAL_8));
 
@@ -66,7 +66,7 @@ class ParticipantResultTest {
     void 참가자가_버스트고_딜러가_버스트가_아닌_경우_딜러가_승리한다() {
         // given
         Dealer dealer = new Dealer();
-        Participant participant = new Participant(new PlayerName("프리"), new BettedMoney(10_000));
+        Participant participant = new Participant(new PlayerName("프리"));
         dealer.putCard(new Card(CardShape.CLOVER, CardType.NORMAL_8));
         participant.putCard(new Card(CardShape.CLOVER, CardType.JACK));
         participant.putCard(new Card(CardShape.CLOVER, CardType.QUEEN));
@@ -83,7 +83,7 @@ class ParticipantResultTest {
     void 딜러가_버스트고_참가자가_버스트가_아닌_경우_참가자승리한다() {
         // given
         Dealer dealer = new Dealer();
-        Participant participant = new Participant(new PlayerName("프리"), new BettedMoney(10_000));
+        Participant participant = new Participant(new PlayerName("프리"));
         participant.putCard(new Card(CardShape.CLOVER, CardType.NORMAL_8));
         dealer.putCard(new Card(CardShape.CLOVER, CardType.JACK));
         dealer.putCard(new Card(CardShape.CLOVER, CardType.QUEEN));
@@ -100,7 +100,7 @@ class ParticipantResultTest {
     void 플레이어_모두_버스트인_경우_딜러가_승리한다() {
         // given
         Dealer dealer = new Dealer();
-        Participant participant = new Participant(new PlayerName("프리"), new BettedMoney(10_000));
+        Participant participant = new Participant(new PlayerName("프리"));
         participant.putCard(new Card(CardShape.CLOVER, CardType.NORMAL_8));
         dealer.putCard(new Card(CardShape.CLOVER, CardType.JACK));
         dealer.putCard(new Card(CardShape.CLOVER, CardType.QUEEN));
@@ -122,9 +122,9 @@ class ParticipantResultTest {
         Dealer dealer = new Dealer();
         dealer.putCard(new Card(CardShape.CLOVER, CardType.JACK));
         dealer.putCard(new Card(CardShape.CLOVER, CardType.QUEEN));
-        Participant participant = new Participant(new PlayerName("프리"), new BettedMoney(10_000));
+        Participant participant = new Participant(new PlayerName("프리"));
         participant.putCard(new Card(CardShape.CLOVER, CardType.NORMAL_8));
-        Participant participant2 = new Participant(new PlayerName("포비"), new BettedMoney(20_000));
+        Participant participant2 = new Participant(new PlayerName("포비"));
         participant2.putCard(new Card(CardShape.CLOVER, CardType.ACE));
         participant2.putCard(new Card(CardShape.CLOVER, CardType.KING));
         Participants participants = new Participants(List.of(participant, participant2));
@@ -142,9 +142,9 @@ class ParticipantResultTest {
         Dealer dealer = new Dealer();
         dealer.putCard(new Card(CardShape.CLOVER, CardType.JACK));
         dealer.putCard(new Card(CardShape.CLOVER, CardType.QUEEN));
-        Participant participant = new Participant(new PlayerName("프리"), new BettedMoney(10_000));
+        Participant participant = new Participant(new PlayerName("프리"));
         participant.putCard(new Card(CardShape.CLOVER, CardType.NORMAL_8));
-        Participant participant2 = new Participant(new PlayerName("포비"), new BettedMoney(20_000));
+        Participant participant2 = new Participant(new PlayerName("포비"));
         participant2.putCard(new Card(CardShape.CLOVER, CardType.ACE));
         participant2.putCard(new Card(CardShape.CLOVER, CardType.KING));
         Participants participants = new Participants(List.of(participant, participant2));

@@ -1,7 +1,5 @@
 package blackjack.view;
 
-import blackjack.model.player.PlayerName;
-
 import java.util.Scanner;
 
 public class InputView {
@@ -13,8 +11,8 @@ public class InputView {
         return scanner.nextLine();
     }
 
-    public int inputParticipantMoney(final PlayerName name) {
-        System.out.println(String.format("%n%s의 베팅 금액은?", name.getName()));
+    public int inputParticipantMoney(final String name) {
+        System.out.println(String.format("%n%s의 베팅 금액은?", name));
         return StringToIntegerParser.parse(scanner.nextLine());
     }
 
