@@ -7,7 +7,6 @@ import blackjack.model.player.Dealer;
 import blackjack.model.player.Participant;
 import blackjack.model.player.Participants;
 import blackjack.model.player.PlayerName;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -39,7 +38,7 @@ public class BettedMoneysTest {
         Map<Participant, ParticipantResult> participantResults = ParticipantResult.calculateParticipantResults(dealer, participants);
 
         // When
-        Map<Participant, Integer> winningMoneys = bettedMoneys.calculateWinningMoney(dealer.isBlackJack(), participantResults);
+        Map<Participant, Integer> winningMoneys = bettedMoneys.calculateWinningMoneys(dealer.isBlackJack(), participantResults);
 
         // Then
         assertThat(winningMoneys).isEqualTo(Map.of(participant, 15_000, participant2, 10_000, participant3, 0, participant4, -10_000));
@@ -65,7 +64,7 @@ public class BettedMoneysTest {
         Map<Participant, ParticipantResult> participantResults = ParticipantResult.calculateParticipantResults(dealer, participants);
 
         // When
-        Map<Participant, Integer> winningMoneys = bettedMoneys.calculateWinningMoney(dealer.isBlackJack(), participantResults);
+        Map<Participant, Integer> winningMoneys = bettedMoneys.calculateWinningMoneys(dealer.isBlackJack(), participantResults);
 
         // Then
         assertThat(winningMoneys).isEqualTo(Map.of(participant, 0, participant2, -10_000, participant3, -10_000));

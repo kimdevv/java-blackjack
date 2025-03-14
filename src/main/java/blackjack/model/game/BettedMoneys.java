@@ -19,24 +19,27 @@ public class BettedMoneys {
         this.bettedMoneys = bettedMoneys;
     }
 
-    public Map<Participant, Integer> calculateWinningMoney(final boolean isDealerBlackJack, final Map<Participant, ParticipantResult> participantResults) {
+    public Map<Participant, Integer> calculateWinningMoneys(final boolean isDealerBlackJack, final Map<Participant, ParticipantResult> participantResults) {
         Map<Participant, Integer> winningMoneys = new HashMap<>();
         for (Map.Entry<Participant, ParticipantResult> resultEntry : participantResults.entrySet()) {
             Participant participant = resultEntry.getKey();
-            if (isDealerBlackJack) {
-                winningMoneys.put(participant, calculateWinningMoneyIfDealerBlackJack(participant));
-                continue;
-            }
-            winningMoneys.put(participant, calculateWinningMoneyNotBlackJack(bettedMoneys.get(participant).getMoney(), participant.isBlackJack(), resultEntry.getValue()));
+            winningMoneys.put(participant, calculateWinningMoney(isDealerBlackJack, participant, resultEntry.getValue()));
         }
         return winningMoneys;
+    }
+
+    private int calculateWinningMoney(final boolean isDealerBlackJack, final Participant participant, final ParticipantResult participantResult) {
+        if (isDealerBlackJack) {
+            return calculateWinningMoneyIfDealerBlackJack(participant);
+        }
+        return calculateWinningMoneyNotBlackJack(bettedMoneys.get(participant).getMoney(), participant.isBlackJack(), participantResult);
     }
 
     private int calculateWinningMoneyIfDealerBlackJack(final Participant participant) {
         if (participant.isBlackJack()) {
             return DRAW_MONEY;
         }
-        return 0 - bettedMoneys.get(participant).getMoney();
+        return -bettedMoneys.get(participant).getMoney();
     }
 
     private int calculateWinningMoneyNotBlackJack(final int bettedMoney, final boolean isBlackJack, final ParticipantResult participantResult) {
@@ -47,7 +50,7 @@ public class BettedMoneys {
             return bettedMoney;
         }
         if (participantResult == LOSE) {
-            return 0 - bettedMoney;
+            return -bettedMoney;
         }
         return DRAW_MONEY;
     }

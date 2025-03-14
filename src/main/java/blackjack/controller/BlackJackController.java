@@ -86,7 +86,7 @@ public class BlackJackController {
 
     private void calculateFinalWinningMoney(final Dealer dealer, final Participants participants, final BettedMoneys bettedMoneys) {
         Map<Participant, ParticipantResult> participantResults = ParticipantResult.calculateParticipantResults(dealer, participants);
-        Map<Participant, Integer> winningMoney = bettedMoneys.calculateWinningMoney(dealer.isBlackJack(), participantResults);
+        Map<Participant, Integer> winningMoney = bettedMoneys.calculateWinningMoneys(dealer.isBlackJack(), participantResults);
         int dealerMoney = -winningMoney.values().stream()
                 .mapToInt(Integer::intValue)
                 .sum();

@@ -18,14 +18,14 @@ public class BettedMoneyTest {
     }
     
     @Test
-    void 베팅은_0원_이상_가능하다() {
+    void 베팅은_10000원_이상_가능하다() {
         // Given
-        int money = -1;
+        int money = 9999;
         
         // When & Then
         assertThatThrownBy(() -> new BettedMoney(money))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("0원 이상 베팅 가능합니다.");
+                .hasMessage("10000원 이상 베팅 가능합니다.");
     }
 
     @Test
